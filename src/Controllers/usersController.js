@@ -15,14 +15,13 @@ const  singUp = async (req, res)=>{
       res.status(500).send(error.message)
     }
 }
-
 const singIn = async (req, res)=>{
   const { email, password } = req.body
 
   try {
 
     const checkUser = await db.collection('users').findOne({ email })
-
+    const name = checkUser.name
     if (!checkUser) return res.status(400).send("Usuário ou senha incorretos")
 
     const isCorrectPassword = bcrypt.compareSync(password, checkUser.password)
@@ -31,13 +30,12 @@ const singIn = async (req, res)=>{
 
     const token = uuid();
 
-    await db.collection("sessoes").insertOne({ idUser: checkUser._id, token })
+    await db.collection("sessions").insertOne({ idUser: checkUser._id, token })
 
-    return res.status(200).send(token)
+    return res.status(200).send({name, token})
 
   } catch (error) {
     res.status(500).send(error.message)
   }
 }
-
 export {singUp, singIn};
