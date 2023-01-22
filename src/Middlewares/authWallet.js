@@ -8,10 +8,8 @@ export async function authValidation(req, res, next) {
 
   try {
     const checkSession = await db.collection("sessions").findOne({ token })
-    console.log(checkSession)
     if (!checkSession) return res.status(401).send("Você não possue acesso!")
-
-    res.locals.token = checkToken
+    res.locals.token = checkSession
 
     next()
 

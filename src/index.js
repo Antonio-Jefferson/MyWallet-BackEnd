@@ -4,6 +4,7 @@ import authRouter from "./Routers/authUserRouter.js";
 import routerWallet from "./Routers/walletRouter.js";
 import dotenv from 'dotenv';
 dotenv.config();
+
 const app = express();
 
 app.use(cors())
