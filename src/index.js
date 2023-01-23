@@ -12,6 +12,7 @@ app.use(express.json())
 
 app.use([authRouter, routerWallet])
 
-app.listen(process.env.PORT, ()=> console.log(`running on the door ${process.env.PORT}`))
+const port = process.env.PORT || 5000
+app.listen(port, ()=> console.log(`running on the door ${port}`))
 
 
